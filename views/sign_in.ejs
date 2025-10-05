@@ -1,279 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In / Sign Up</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap");
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Sign in | Medicine Reminder' %></title>
 
-      :root {
-        --popupBackground: linear-gradient(45deg, #83a4d4, #b6fbff);
-        --color: #fcfcfc;
-        --colorSmooth: #e0e0e0;
-        --colorDark: #222;
-      }
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-      * {
-        margin: 0;
-        border: 0;
-        padding: 0;
-        outline: 0;
-        font-family: "Rubik", sans-serif;
-      }
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
-      *:after,
-      *:before {
-        box-sizing: border-box;
-      }
+    :root {
+      --bg: #0b1220;
+      --bg-overlay: rgba(4, 9, 30, 0.60);
+      --card: rgba(255, 255, 255, 0.12);
+      --card-solid: #ffffff;
+      --text: #ffffff;
+      --text-dark: #0f172a;
+      --muted: #c7d2fe;
+      --border: rgba(255, 255, 255, 0.22);
+      --primary: #2563eb;
+      --primary-2: #22d3ee;
+      --danger: #ef4444;
+      --shadow: 0 12px 30px rgba(2, 6, 23, 0.25);
+      --radius: 16px;
+    }
 
-      html {
-        position: relative;
-        overflow: hidden;
-        font-size: 16px;
-      }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-      body {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(to top, #a4def9, #cfbae1);
-      }
+    body {
+      font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+        url(https://i.pinimg.com/originals/9f/f7/d1/9ff7d1a690e7bf508eda106f9bc13dab.jpg) center/cover no-repeat fixed;
+    }
 
-      .popup {
-        width: 37.5rem;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--popupBackground);
-        backdrop-filter: blur(1rem);
-        border-radius: 1rem;
-        padding: 1rem;
-        gap: 1rem;
-        flex-direction: column;
-      }
+    a { color: inherit; text-decoration: none; }
 
-      .popup-image {
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-        border-radius: 0.5rem;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
+    /* Centered auth wrapper */
+    .auth-wrapper {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+    }
 
-      .popup-image img {
-        width: 50%;
-        height: 50%;
-        object-fit: center;
-      }
+    /* Glass card */
+    .add-card {
+      width: 100%;
+      max-width: 620px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
 
-      form {
-        width: 100%;
-        padding: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        flex-direction: column;
-      }
+    .add-card .header {
+      padding: 26px 22px 20px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.28), rgba(34,211,238,0.24));
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      text-align: center;
+    }
 
-      input {
-        padding: 0.6rem 0.75rem;
-        border-radius: 0.5rem;
-        font-weight: 500;
-        font-size: 1rem;
-        background: whitesmoke;
-        backdrop-filter: blur(1rem);
-        color: var(--colorDark);
-        transition: all 0.25s ease 0s;
-        width: calc(100% - 20px);
-      }
+    /* Bigger, clearer logo with halo and padded white background */
+    
+    .logo {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* show entire logo */
+      image-rendering: -webkit-optimize-contrast;
+    }
 
-      input:focus {
-        box-shadow: 0 0 0 3px #e8454580;
-      }
+    .brand-name {
+      margin-top: 2px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: #eef2ff;
+      font-size: clamp(22px, 3.4vw, 28px);
+    }
+    .brand-tagline {
+      color: var(--muted);
+      font-size: clamp(13px, 2.4vw, 15px);
+    }
 
-      .title {
-        color: var(--color);
-        padding: 0.5rem 0;
-        text-align: center;
-      }
+    .add-card .body {
+      padding: 22px;
+      background: rgba(2, 6, 23, 0.28);
+    }
 
-      .submit-btn {
-        padding: 0.8rem;
-        border-radius: 0.5rem;
-        font-weight: 500;
-        font-size: 1rem;
-        background: #1a374d;
-        backdrop-filter: blur(1rem);
-        color: var(--color);
-        transition: all 0.25s ease 0s;
-        cursor: pointer;
-        width: calc(100% - 20px);
-        text-align: center;
-      }
+    /* Tabs (Sign in / Sign up) */
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px;
+    }
+    .tab {
+      text-align: center;
+      padding: 12px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #dbeafe;
+      font-weight: 800;
+      letter-spacing: .2px;
+      transition: background .15s ease, color .15s ease, transform .12s ease;
+      user-select: none;
+    }
+    .tab:hover { transform: translateY(-1px); }
+    .tab.active {
+      background: rgba(99,102,241,0.3);
+      color: #ffffff;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 14px rgba(2,6,23,0.22) inset;
+    }
 
-      .submit-btn:hover {
-        background: #1a374ddd;
-      }
+    /* Form styles */
+    form {
+      display: grid;
+      gap: 12px;
+    }
+    label {
+      display: block;
+      color: #eaf2ff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.12s ease;
+      font-size: 0.98rem;
+    }
+    input::placeholder { color: rgba(255,255,255,0.75); }
+    input:focus {
+      border-color: rgba(34, 211, 238, 0.8);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18);
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
 
-      .submit-btn:focus {
-        background: #1a374ddd;
-        box-shadow: 0 0 0 3px #e8454580;
-      }
+    .helper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.92rem;
+      color: #dbeafe;
+      margin-top: 2px;
+    }
+    .link {
+      color: #c7d2fe;
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: pointer;
+    }
 
-      hr {
-        width: 100%;
-        height: 2px;
-        margin: 0.1rem 0;
-        background: var(--popupBackground);
-        border-radius: 0.5rem;
-      }
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
 
-      .options {
-        color: var(--colorSmooth);
-        font-weight: 400;
-        text-align: center;
-      }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease, filter .2s ease;
+      color: #fff;
+    }
+    .btn:active { transform: translateY(0); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover { filter: brightness(1.05); }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); }
 
-      .options a {
-        color: #1b262c;
-        font-weight: 500;
-        text-decoration: none;
-        cursor: pointer;
-      }
+    .hr {
+      height: 1px;
+      background: rgba(255,255,255,0.22);
+      margin: 8px 0;
+      border-radius: 999px;
+    }
 
-      .options div {
-        padding: 0.1rem 0;
-      }
+    .msg {
+      display: none;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .msg.show { display: block; }
+    .msg.error {
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fee2e2;
+    }
+    .msg.success {
+      background: rgba(34, 197, 94, 0.18);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #dcfce7;
+    }
 
-      @media screen and (max-width: 38rem) {
-        .popup {
-          width: 90%;
-        }
+    /* Hide/show forms */
+    .hidden { display: none; }
 
-        .popup-image {
-          display: none;
-        }
-
-        input,
-        .submit-btn {
-          width: 100%;
-        }
-      }
-
-      .error {
-        background: #e8454540;
-        color: var(--color);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="popup">
-      <div class="popup-image">
-        <img src="" />
+    /* Responsive adjustments */
+    @media (max-width: 540px) {
+      .add-card { max-width: 92vw; }
+      .brand-name { font-size: 22px; }
+      .actions { flex-direction: column; gap: 8px; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <main class="auth-wrapper">
+    <section class="add-card">
+      <div class="header">
+        <div class="logo-wrap" aria-hidden="false">
+          <img
+            class="logo"
+            src="https://ik.imagekit.io/77nsbwefl/download.png?updatedAt=1755196133135"
+            alt="App Logo"
+            loading="eager"
+            decoding="async"
+            onerror="this.onerror=null;this.src='https://cdn.pixabay.com/photo/2015/12/15/23/32/universal-health-care-1095124_640.png';"
+          />
+        </div>
+        <div class="brand-name">Welcome back</div>
+        <p class="brand-tagline">Sign in to continue, or create an account to get started.</p>
       </div>
 
-      <!-- Sign In Form -->
-      <form class="signinForm" onsubmit="return false">
-        <h1 class="title">Sign in</h1>
-        <input type="email" id="email" placeholder="Email address" autocomplete="off" />
-        <input type="password" id="password" placeholder="Password" />
-        <button class="submit-btn" type="submit">Sign in</button>
-        <hr />
-        <div class="options">
-          <div>
-            Don't have an account? <a id="toggle-signup">Sign up</a>
+      <div class="body">
+        <!-- Tabs -->
+        <div class="tabs" role="tablist" aria-label="Auth tabs">
+          <div id="tab-signin" class="tab active" role="tab" aria-selected="true" aria-controls="panel-signin">
+            <i class="fa-solid fa-right-to-bracket"></i> Sign in
           </div>
-          <div>Forgot your password? <a href="#">Reset</a></div>
+          <div id="tab-signup" class="tab" role="tab" aria-selected="false" aria-controls="panel-signup">
+            <i class="fa-solid fa-user-plus"></i> Sign up
+          </div>
         </div>
-        <a href="/">Go Back</a>
 
+        <!-- Sign In Form -->
+        <form id="panel-signin" class="" role="tabpanel" aria-labelledby="tab-signin" novalidate>
+          <div id="signinMsg" class="msg" role="alert"></div>
 
-      </form>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required>
+          </div>
 
-      <!-- Sign Up Form (hidden by default) -->
-      <form class="signUpForm" onsubmit="return false" style="display:none;">
-        <h1 class="title">Sign up</h1>
-        <input type="text" id="signup-name" placeholder="Full Name" />
-        <input type="email" id="signup-email" placeholder="Email address" autocomplete="off" />
-        <input type="password" id="signup-password" placeholder="Password" />
-        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" />
-        <button class="submit-btn" type="submit">Create Account</button>
-        <hr />
-        <div class="options">
-          <div>Already have an account? <a id="toggle-signin">Sign in</a></div>
-        </div>
-        <a href="/">Go Back</a>
-      </form>
-    </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Your password" autocomplete="current-password" required>
+          </div>
 
-    <!-- Script for toggling forms -->
-    <script>
-  const signInForm = document.querySelector(".signinForm");
-  const signUpForm = document.querySelector(".signUpForm");
-  const toggleToSignUp = document.getElementById("toggle-signup");
-  const toggleToSignIn = document.getElementById("toggle-signin");
+          <div class="helper">
+            <span></span>
+            <a class="link" href="#" title="Reset password">Forgot password?</a>
+          </div>
 
-  toggleToSignUp.onclick = () => {
-    signInForm.style.display = "none";
-    signUpForm.style.display = "flex";
-  };
+          <div class="actions">
+            <a href="/" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+            <button id="signinBtn" class="btn btn-primary" type="submit">
+              <i class="fa-solid fa-right-to-bracket"></i> Sign in
+            </button>
+          </div>
+        </form>
 
-  toggleToSignIn.onclick = () => {
-    signUpForm.style.display = "none";
-    signInForm.style.display = "flex";
-  };
+        <!-- Sign Up Form -->
+        <form id="panel-signup" class="hidden" role="tabpanel" aria-labelledby="tab-signup" novalidate>
+          <div id="signupMsg" class="msg" role="alert"></div>
 
-  // 🔐 Handle Sign In
-  signInForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+          <div class="field">
+            <label for="signup-name">Full name</label>
+            <input type="text" id="signup-name" name="name" placeholder="Jane Doe" autocomplete="name">
+          </div>
 
-    const res = await fetch("/sign_in", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ username: email, password }),
+          <div class="field">
+            <label for="signup-email">Email address</label>
+            <input type="email" id="signup-email" name="email" placeholder="name@example.com" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" placeholder="Create a password" autocomplete="new-password" required>
+          </div>
+
+          <div class="field">
+            <label for="signup-confirm-password">Confirm password</label>
+            <input type="password" id="signup-confirm-password" name="confirm" placeholder="Repeat your password" autocomplete="new-password" required>
+          </div>
+
+          <div class="actions">
+            <a href="/" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+            <button id="signupBtn" class="btn btn-primary" type="submit">
+              <i class="fa-solid fa-user-plus"></i> Create account
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tabs toggle
+    const tabSignin = document.getElementById('tab-signin');
+    const tabSignup = document.getElementById('tab-signup');
+    const panelSignin = document.getElementById('panel-signin');
+    const panelSignup = document.getElementById('panel-signup');
+
+    function activate(tab) {
+      const isSignin = tab === 'signin';
+      tabSignin.classList.toggle('active', isSignin);
+      tabSignup.classList.toggle('active', !isSignin);
+      tabSignin.setAttribute('aria-selected', String(isSignin));
+      tabSignup.setAttribute('aria-selected', String(!isSignin));
+      panelSignin.classList.toggle('hidden', !isSignin);
+      panelSignup.classList.toggle('hidden', isSignin);
+    }
+
+    tabSignin.addEventListener('click', () => activate('signin'));
+    tabSignup.addEventListener('click', () => activate('signup'));
+
+    // Inline message helpers
+    function showMsg(el, text, type = 'error') {
+      el.textContent = text;
+      el.className = 'msg show ' + type;
+    }
+    function clearMsg(el) {
+      el.textContent = '';
+      el.className = 'msg';
+    }
+
+    // Submit helpers
+    function setLoading(btn, loading) {
+      btn.disabled = loading;
+      btn.style.opacity = loading ? '0.75' : '1';
+    }
+
+    // Sign In submit
+    const signinForm = panelSignin;
+    const signinBtn = document.getElementById('signinBtn');
+    const signinMsg = document.getElementById('signinMsg');
+
+    signinForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMsg(signinMsg);
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if (!email || !password) {
+        showMsg(signinMsg, 'Please enter both email and password.', 'error');
+        return;
+      }
+
+      try {
+        setLoading(signinBtn, true);
+        const res = await fetch('/sign_in', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ username: email, password })
+        });
+
+        if (res.redirected) {
+          window.location.href = res.url;
+          return;
+        }
+
+        const text = await res.text();
+        if (res.ok && /success|signed\s?in/i.test(text)) {
+          showMsg(signinMsg, 'Signed in successfully. Redirecting...', 'success');
+          setTimeout(() => (window.location.href = '/dashboard'), 600);
+        } else {
+          showMsg(signinMsg, text || 'Invalid credentials. Please try again.', 'error');
+        }
+      } catch (err) {
+        showMsg(signinMsg, 'Something went wrong. Please try again.', 'error');
+      } finally {
+        setLoading(signinBtn, false);
+      }
     });
 
-    const text = await res.text();
-    if (res.redirected) {
-      window.location.href = res.url;
-    } else {
-      alert(text); // Show error message
-    }
-  });
+    // Sign Up submit
+    const signupForm = panelSignup;
+    const signupBtn = document.getElementById('signupBtn');
+    const signupMsg = document.getElementById('signupMsg');
 
-  // 🆕 Handle Sign Up
-  signUpForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("signup-name").value.trim();
-    const email = document.getElementById("signup-email").value.trim();
-    const password = document.getElementById("signup-password").value.trim();
-    const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMsg(signupMsg);
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value.trim();
+      const confirmPassword = document.getElementById('signup-confirm-password').value.trim();
 
-    const res = await fetch("/sign_up", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ username: email, password }),
+      if (!email || !password || !confirmPassword) {
+        showMsg(signupMsg, 'Please fill in all required fields.', 'error');
+        return;
+      }
+      if (password !== confirmPassword) {
+        showMsg(signupMsg, 'Passwords do not match.', 'error');
+        return;
+      }
+
+      try {
+        setLoading(signupBtn, true);
+        const res = await fetch('/sign_up', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ username: email, password })
+        });
+
+        const text = await res.text();
+        if (res.ok && /success/i.test(text)) {
+          showMsg(signupMsg, 'Signup successful! You can now sign in.', 'success');
+          setTimeout(() => activate('signin'), 600);
+        } else {
+          showMsg(signupMsg, text || 'Signup failed. Please try again.', 'error');
+        }
+      } catch (err) {
+        showMsg(signupMsg, 'Something went wrong. Please try again.', 'error');
+      } finally {
+        setLoading(signupBtn, false);
+      }
     });
-
-    const text = await res.text();
-    alert(text);
-    if (text.includes("Signup successful")) {
-      toggleToSignIn.click(); // Switch to sign-in form
-    }
-  });
-</script>
-  </body>
+  </script>
+</body>
 </html>

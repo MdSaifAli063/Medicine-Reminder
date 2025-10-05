@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Home | Medicine Reminder' %></title>
+    <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'About | Medicine Reminder' %></title>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -44,7 +44,16 @@
       a { color: inherit; text-decoration: none; }
       .container { width: 92%; max-width: 1200px; margin: 0 auto; }
 
-      /* Navbar (shared style) */
+      /* Only expand the content container, not the navbar container */
+      .page-container .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding-left: 4vw;
+        padding-right: 4vw;
+      }
+
+      /* Navbar (shared) - unchanged */
       .navbar {
         position: relative;
         background: linear-gradient(135deg, rgba(99,102,241,.85), rgba(34,211,238,.85));
@@ -81,7 +90,7 @@
       #userIcon:hover { transform: translateY(-1px); opacity: .95; }
       #userMenu {
         position: absolute; top: calc(100% + 10px); right: 0; display: none;
-        min-width: 200px; background: var(--card-solid); color: var(--text-dark);
+        min-width: 180px; background: var(--card-solid); color: var(--text-dark);
         border: 1px solid var(--border-solid); border-radius: 10px; box-shadow: var(--shadow);
         padding: 6px; z-index: 1000;
       }
@@ -94,45 +103,103 @@
       #userMenu a:hover { background: #f3f4f6; color: var(--primary); }
       @keyframes menuIn { from { opacity: 0; transform: translateY(-6px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-      /* Hero section */
-      .header {
-        min-height: calc(100vh - 72px);
-        display: grid;
-        place-items: center;
-        text-align: center;
-        padding: 40px 0 60px;
-      }
+      /* Page container */
+      .page-container { padding: 40px 0 60px; }
 
-      /* UPDATED: make hero full-width, remove box/card look */
-      .text-box {
+      /* Flatten the card wrapper so content sits directly on the background */
+      .add-card {
         width: 100%;
         max-width: none;
+        margin: 24px 0 0;
         background: transparent;
         border: none;
         border-radius: 0;
         box-shadow: none;
         backdrop-filter: none;
-        padding: 0 4vw; /* give side breathing room without a container */
+        overflow: visible;
+      }
+      .add-card .header {
+        padding: 20px 0 12px;
+        background: transparent;
+        border-bottom: none;
+      }
+      .add-card .header h1 { font-size: 32px; font-weight: 700; color: #e5edff; margin: 0; }
+      .add-card .header p { color: var(--muted); margin: 6px 0 0 0; line-height: 1.6; font-size: 16px; }
+      .add-card .body {
+        padding: 0;
+        background: transparent;
       }
 
-      .text-box h1 {
-        font-size: clamp(30px, 5vw, 48px);
+      /* About content layout */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 14px;
+      }
+
+      /* Remove inner card look */
+      .card {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+      }
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 17px;
         font-weight: 800;
-        color: #e5edff;
-        letter-spacing: 0.3px;
-        margin-bottom: 10px;
+        color: #eaf2ff;
+        letter-spacing: .3px;
       }
-      .tagline {
-        color: var(--muted);
-        font-size: clamp(14px, 2.2vw, 18px);
+      .card p {
+        margin: 0 0 8px;
+        color: #dbeafe;
         line-height: 1.7;
-        margin-bottom: 22px;
+        font-size: 16px;
       }
-      .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+      .about-hero {
+        display: grid;
+        gap: 10px;
+      }
+      .about-hero .tag {
+        display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px;
+        border: 1px solid var(--border); border-radius: 999px; color: #eaf2ff; width: max-content;
+        background: rgba(255,255,255,0.06); font-size: 12px; font-weight: 700; letter-spacing: .3px;
+      }
+      .about-hero h2 {
+        margin: 4px 0 6px; font-size: clamp(22px, 2.4vw, 28px); font-weight: 800; color: #eaf2ff;
+      }
+      .about-hero .lead { color: #c7d2fe; }
+
+      .about-image { display: grid; gap: 10px; }
+      .about-image img {
+        width: 100%; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+        object-fit: cover; max-height: 360px;
+      }
+
+      /* Values list flattened (no cards) */
+      .values-grid {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .value {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        display: grid; gap: 6px;
+      }
+      .value i { color: #a5b4fc; }
+      .value h4 { margin: 0; color: #eaf2ff; font-size: 16px; }
+      .value p { margin: 0; color: #dbeafe; font-size: 13px; line-height: 1.6; }
+
+      .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
       .btn {
         display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;
-        border-radius: 12px; padding: 24px 20px; font-weight: 700; text-decoration: none;
+        border-radius: 10px; padding: 12px 16px; font-weight: 700; text-decoration: none;
         transition: transform .12s ease, box-shadow .2s ease, background .2s ease, filter .2s ease;
       }
       .btn:active { transform: translateY(0); }
@@ -140,35 +207,11 @@
         background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white;
         box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
       }
-      .btn-primary:hover { filter: brightness(1.05); }
       .btn-secondary {
         background: rgba(255, 255, 255, 0.15); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25);
       }
-      .btn-secondary:hover { background: rgba(255,255,255,0.20); }
 
-      /* Feature grid */
-      .features {
-        margin-top: 26px;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-      }
-      .feature {
-        padding: 40px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        display: grid;
-        grid-auto-flow: row;
-        gap: 8px;
-        justify-items: start;
-        text-align: left;
-      }
-      .feature i { color: #a5b4fc; }
-      .feature h3 { font-size: 22px; color: #eaf2ff; margin: 0; }
-      .feature p { margin: 0; color: #dbeafe; font-size: 13px; line-height: 1.6; }
-
-      /* Footer (shared style) */
+      /* Footer (shared) */
       .footer-distributed {
         background: linear-gradient(45deg, #83a4d4, #b6fbff);
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
@@ -206,7 +249,8 @@
 
       /* Responsive */
       @media (max-width: 980px) {
-        .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .about-grid { grid-template-columns: 1fr; }
+        .values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
       @media (max-width: 768px) {
         .navbar-toggler { display: block; }
@@ -218,23 +262,26 @@
         }
         .navbar-nav { width: 100%; flex-direction: column; gap: 6px; }
         .navbar-nav > li > a { width: 100%; }
+        .add-card .header h1 { font-size: 22px; }
+      }
+      @media (max-width: 640px) {
+        .values-grid { grid-template-columns: 1fr; }
       }
       @media (max-width: 880px) {
         .footer-distributed .footer-left, .footer-distributed .footer-center, .footer-distributed .footer-right {
           display: block; width: 100%; margin-bottom: 24px; text-align: left;
         }
-        .features { grid-template-columns: 1fr; }
       }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
+    <!-- Navbar (unchanged) -->
     <nav class="navbar">
       <div class="container">
         <div class="navbar-header">
-          <a href="/" class="navbar-logo" aria-label="Home">
-            <img src="https://cdn.pixabay.com/photo/2015/12/15/23/32/universal-health-care-1095124_640.png" alt="Logo">
-            <img src="https://ik.imagekit.io/77nsbwefl/download.png?updatedAt=1755196133135" alt="Logo Alt">
+          <a href="/" class="navbar-logo">
+            <img src="https://cdn.pixabay.com/photo/2015/12/15/23/32/universal-health-care-1095124_640.png" alt="logo">
+            <img src="https://ik.imagekit.io/77nsbwefl/download.png?updatedAt=1755196133135" alt="logo">
           </a>
           <button class="navbar-toggler" aria-label="Toggle navigation">
             <span></span><span></span><span></span>
@@ -267,46 +314,69 @@
       </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="header">
-      <div class="text-box">
-        <h1>Medicine Reminder + <br>Your Daily Wellness Companion</h1>
-        <p class="tagline">
-          Welcome to the Medicine Reminder Application. <br> Add schedules, get timely reminders, and stay consistent with your wellness journey.
-          Peace of mind, one reminder at a time.
-        </p>
-        <div class="hero-actions">
-          <a href="/add_medicine" class="btn btn-primary">
-            <i class="fa-solid fa-pills"></i>
-            Add Your Pills
-          </a>
-          <a href="/show_details" class="btn btn-secondary">
-            <i class="fa-solid fa-clipboard-list"></i>
-            View Your Schedule
-          </a>
+    <!-- Page -->
+    <main class="page-container">
+      <section class="add-card container">
+        <div class="header">
+          <h1>About Medmindr</h1>
+          <p>Where clean design meets powerful functionality. We build simple, reliable tools that help you stay on track with your <br>wellness.</p>
         </div>
 
-        <section class="features">
-          <div class="feature">
-            <i class="fa-solid fa-bell"></i>
-            <h3>Smart Reminders</h3>
-            <p>Get reminders based on your configured frequency and duration.</p>
-          </div>
-          <div class="feature">
-            <i class="fa-solid fa-shield-heart"></i>
-            <h3>Simple & Secure</h3>
-            <p>Your data stays private and the interface is easy to use.</p>
-          </div>
-          <div class="feature">
-            <i class="fa-solid fa-mobile-screen-button"></i>
-            <h3>Responsive</h3>
-            <p>Beautiful on phones, tablets and desktops—anywhere you are.</p>
-          </div>
-        </section>
-      </div>
-    </header>
+        <div class="body">
+          <div class="about-grid">
+            <!-- Left: narrative -->
+            <div class="card about-hero">
+              <span class="tag"><i class="fa-solid fa-heart-pulse"></i> Our Mission</span>
+              <h2>Innovation, Integrity, Impact</h2>
+              <p class="lead">
+                We are passionate about building innovative, user-friendly, and reliable solutions that make life simpler.
+                Our mission is to combine clean design with powerful functionality, creating experiences that leave a lasting impression.
+              </p>
+              <p>
+                With a commitment to quality and attention to detail, we ensure every project reflects our values.
+                Whether it’s crafting stunning interfaces, developing seamless applications, or delivering tailored solutions,
+                we put our heart into every step.
+              </p>
 
-    <!-- Footer -->
+              <div class="values-grid">
+                <div class="value">
+                  <i class="fa-solid fa-lightbulb"></i>
+                  <h4>Innovation</h4>
+                  <p>Always improving the experience and reliability of reminders.</p>
+                </div>
+                <div class="value">
+                  <i class="fa-solid fa-shield-heart"></i>
+                  <h4>Integrity</h4>
+                  <p>Privacy-first design with transparent, predictable behavior.</p>
+                </div>
+                <div class="value">
+                  <i class="fa-solid fa-people-group"></i>
+                  <h4>Impact</h4>
+                  <p>Helping you stay consistent with your medication—every day.</p>
+                </div>
+              </div>
+
+              <div class="actions">
+                <a href="/add_medicine" class="btn btn-primary"><i class="fa-solid fa-pills"></i> Get Started</a>
+                <a href="/" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back Home</a>
+              </div>
+            </div>
+
+            <!-- Right: image/info -->
+            <aside class="card about-image">
+              <img src="https://topflightapps.com/wp-content/uploads/2022/02/pill_reminder_medical.png" alt="About Medmindr">
+              <div style="display:grid; gap:6px; color:#dbeafe;">
+                <div><i class="fa-solid fa-location-dot"></i> GCE Ramanagaram, South Bengaluru, 562159</div>
+                <div><i class="fa-solid fa-envelope"></i> support@company.com</div>
+                <div><i class="fa-solid fa-clock"></i> Mon–Fri: 9:00–18:00</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+   <!-- Footer -->
     <footer class="footer-distributed">
       <div class="footer-left">
         <a href="/" class="navbar-logo" aria-label="Home">

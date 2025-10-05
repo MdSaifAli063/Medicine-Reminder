@@ -22,5 +22,8 @@
     "mongoose": "^8.17.1",
     "nodemailer": "^7.0.5",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.129"
   }
 }

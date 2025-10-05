@@ -1,0 +1,76 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Build output
+dist/
+build/
+public/uploads/
+tmp/
+temp/
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VSCode settings
+.vscode/
+
+# Logs and PIDs
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# npm package-lock or yarn lock (optional, if you want to ignore)
+# package-lock.json
+# yarn.lock
+
+# Cache
+.cache/
+.nyc_output/
+
+# Local database dumps
+*.bak
+*.sql
+*.sqlite
+
+# Nodemon files
+nodemon-debug.log
+
+# Uploaded files (if user uploads images or documents)
+uploads/

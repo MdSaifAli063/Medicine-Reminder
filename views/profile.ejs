@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Profile | Medicine Reminder' %></title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+    :root {
+      --bg: #0b1220;
+      --bg-overlay: rgba(4, 9, 30, 0.60);
+      --card: rgba(255, 255, 255, 0.12);
+      --card-solid: #ffffff;
+      --text: #ffffff;
+      --text-dark: #0f172a;
+      --muted: #c7d2fe;
+      --border: rgba(255, 255, 255, 0.22);
+      --border-solid: #e5e7eb;
+      --primary: #2563eb;
+      --primary-2: #22d3ee;
+      --success: #16a34a;
+      --danger: #ef4444;
+      --shadow: 0 12px 30px rgba(2, 6, 23, 0.25);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+        url(https://i.pinimg.com/originals/9f/f7/d1/9ff7d1a690e7bf508eda106f9bc13dab.jpg) center/cover no-repeat fixed;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: 92%; max-width: 1100px; margin: 0 auto; }
+
+    /* Navbar (shared) */
+    .navbar {
+      position: relative;
+      background: linear-gradient(135deg, rgba(99,102,241,.85), rgba(34,211,238,.85));
+      padding: 0.8rem 0;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 6px 20px rgba(2, 6, 23, 0.25);
+      z-index: 10;
+    }
+    .navbar > .container { display: flex; align-items: center; gap: 16px; }
+    .navbar-header { display: flex; align-items: center; gap: 12px; }
+    .navbar-logo { display: flex; align-items: center; gap: 8px; }
+    .navbar-logo img { height: 40px; border-radius: 8px; }
+    .navbar-menu { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .navbar-toggler { cursor: pointer; border: none; display: none; outline: none; background: none; }
+    .navbar-toggler span { height: 2px; width: 22px; background-color: #ffffff; display: block; }
+    .navbar-toggler span:not(:last-child) { margin-bottom: 0.3rem; }
+    .navbar-nav { display: flex; list-style: none; padding-left: 0; margin: 0; }
+    .navbar-nav > li > a {
+      color: #ffffff;
+      font-weight: 500;
+      display: inline-block;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .navbar-nav > li > a:hover { background-color: rgba(255,255,255,0.2); color: #fff; }
+
+    /* User menu */
+    .user-menu-wrap { position: relative; display: flex; align-items: center; margin-left: 8px; }
+    #userIcon { font-size: 34px; color: #ffffff; cursor: pointer; transition: transform .15s ease, opacity .2s ease; }
+    #userIcon:hover { transform: translateY(-1px); opacity: .95; }
+    #userMenu {
+      position: absolute; top: calc(100% + 10px); right: 0; display: none;
+      min-width: 180px; background: var(--card-solid); color: var(--text-dark);
+      border: 1px solid var(--border-solid); border-radius: 10px; box-shadow: var(--shadow);
+      padding: 6px; z-index: 1000;
+    }
+    #userMenu.visible { display: block; animation: menuIn .18s ease-out; }
+    #userMenu::before {
+      content: ""; position: absolute; top: -7px; right: 16px; width: 12px; height: 12px; transform: rotate(45deg);
+      background: var(--card-solid); border-left: 1px solid var(--border-solid); border-top: 1px solid var(--border-solid);
+    }
+    #userMenu a { display: block; padding: 8px 10px; border-radius: 8px; color: var(--text-dark); }
+    #userMenu a:hover { background: #f3f4f6; color: var(--primary); }
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Page container */
+    .page-container { padding: 40px 0 60px; }
+
+    /* Shared glass card wrapper */
+    .add-card {
+      max-width: 1000px;
+      margin: 24px auto 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+    .add-card .header {
+      padding: 20px 22px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(34,211,238,0.2));
+      border-bottom: 1px solid var(--border);
+    }
+    .add-card .header h1 { font-size: 28px; font-weight: 700; color: #e5edff; margin: 0; }
+    .add-card .header p { color: var(--muted); margin: 6px 0 0 0; line-height: 1.6; }
+    .add-card .body { padding: 22px; background: rgba(2, 6, 23, 0.25); }
+
+    /* Profile layout */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 14px;
+    }
+    .card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #eaf2ff;
+      letter-spacing: .3px;
+    }
+
+    .profile-summary {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      text-align: center;
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 9999px;
+      border: 2px solid rgba(255,255,255,0.6);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      object-fit: cover;
+      background: linear-gradient(135deg, #6366f1, #22d3ee);
+    }
+    .summary-name { font-size: 20px; font-weight: 800; color: #eaf2ff; }
+    .summary-email { color: #c7d2fe; font-size: 14px; word-break: break-all; }
+
+    /* Form styles */
+    form label {
+      display: block;
+      margin: 10px 0 6px;
+      color: #eaf2ff;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-size: 0.95rem;
+    }
+    input::placeholder { color: rgba(255, 255, 255, 0.7); }
+    input:focus {
+      border-color: rgba(34, 211, 238, 0.8);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.15);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* Buttons */
+    .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;
+      border-radius: 10px; padding: 12px 16px; font-weight: 700; text-decoration: none;
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease, filter .2s ease;
+      color: #fff;
+    }
+    .btn:active { transform: translateY(0); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      box-shadow: 0 10px 24px rgba(239, 68, 68, 0.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: #eaf2ff;
+      border: 1px dashed rgba(255,255,255,0.35);
+    }
+
+    .muted { color: #dbeafe; font-size: 0.9rem; }
+
+    /* Footer (shared) */
+    .footer-distributed {
+      background: linear-gradient(45deg, #83a4d4, #b6fbff);
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+      width: 100%;
+      text-align: left;
+      font: bold 16px 'Open Sans', sans-serif;
+      padding: 40px 24px;
+      margin-top: 50px;
+      color: #111827;
+    }
+    .footer-distributed .footer-left, .footer-distributed .footer-center, .footer-distributed .footer-right {
+      display: inline-block; vertical-align: top;
+    }
+    .footer-distributed .footer-left { width: 40%; }
+    .footer-distributed h3 { color: #111827; font: normal 28px 'Open Sans', cursive; margin: 0 0 8px 0; }
+    .footer-distributed .footer-links { margin: 18px 0 10px; padding: 0; }
+    .footer-distributed .footer-links a { display: inline-block; line-height: 1.8; font-weight: 500; color: #111827; margin-right: 10px; }
+    .footer-distributed .footer-company-name { color: #1f2937; font-size: 14px; font-weight: normal; margin: 8px 0 0; }
+    .footer-distributed .footer-center { width: 35%; }
+    .footer-distributed .footer-center i {
+      background-color: #33383b; color: #ffffff; font-size: 18px; width: 34px; height: 34px; border-radius: 50%;
+      text-align: center; line-height: 34px; margin: 6px 10px 6px 0; vertical-align: middle;
+    }
+    .footer-distributed .footer-center p { display: inline-block; color: #111827; font-weight: 500; vertical-align: middle; margin: 0; }
+    .footer-distributed .footer-center p span { display: block; font-weight: normal; font-size: 14px; line-height: 1.7; color: #374151; }
+    .footer-distributed .footer-center p a { color: #0ea5e9; }
+    .footer-distributed .footer-right { width: 20%; }
+    .footer-distributed .footer-company-about { line-height: 20px; color: #374151; font-size: 14px; font-weight: normal; margin: 0; }
+    .footer-distributed .footer-company-about span { display: block; color: #111827; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+    .footer-distributed .footer-icons { margin-top: 16px; }
+    .footer-distributed .footer-icons a {
+      display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;
+      background-color: #1f2937; border-radius: 8px; font-size: 16px; color: #ffffff; margin-right: 6px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .profile-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .navbar-toggler { display: block; }
+      .navbar-menu {
+        display: none; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%;
+      }
+      .navbar-menu.active {
+        display: flex !important; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 8px;
+      }
+      .navbar-nav { width: 100%; flex-direction: column; gap: 6px; }
+      .navbar-nav > li > a { width: 100%; }
+      .add-card .header h1 { font-size: 22px; }
+    }
+    @media (max-width: 880px) {
+      .footer-distributed .footer-left, .footer-distributed .footer-center, .footer-distributed .footer-right {
+        display: block; width: 100%; margin-bottom: 24px; text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-logo" aria-label="Home">
+          <img src="https://cdn.pixabay.com/photo/2015/12/15/23/32/universal-health-care-1095124_640.png" alt="logo">
+          <img src="https://ik.imagekit.io/77nsbwefl/download.png?updatedAt=1755196133135" alt="logo">
+        </a>
+        <button class="navbar-toggler" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="navbar-menu" id="open-navbar1">
+        <ul class="navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/add_medicine">Medicine</a></li>
+          <li><a href="/show_details">Show Details</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+
+        <div class="user-menu-wrap">
+          <i id="userIcon" class="fas fa-user-circle" aria-hidden="true" aria-haspopup="true" aria-expanded="false"></i>
+          <div id="userMenu" role="menu" aria-label="User menu">
+            <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+              <a href="/dashboard"><i class="fa fa-home"></i> Dashboard</a>
+              <a href="/profile"><i class="fa fa-gear"></i> Profile</a>
+              <a href="/logout"><i class="fa fa-right-from-bracket"></i> Logout</a>
+            <% } else { %>
+              <a href="/sign_in"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page -->
+  <main class="page-container">
+    <section class="add-card container">
+      <div class="header">
+        <h1>Your Profile</h1>
+        <p>Manage your account details and update your credentials.</p>
+      </div>
+
+      <div class="body">
+        <div class="profile-grid">
+          <!-- Summary -->
+          <aside class="card profile-summary" aria-label="Profile summary">
+            <img class="avatar" src="https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?semt=ais_hybrid&w=320&q=80" alt="Profile Avatar">
+            <div class="summary-name"><%= (typeof username !== 'undefined' && username) ? username : 'User' %></div>
+            <div class="summary-email"><%= (typeof email !== 'undefined' && email) ? email : 'No email provided' %></div>
+
+            <button id="manageToggle" class="btn btn-primary" type="button">
+              <i class="fa-solid fa-user-gear"></i>
+              Manage your Account
+            </button>
+
+            <a href="/" class="btn btn-secondary" style="margin-top:8px;">
+              <i class="fa-solid fa-arrow-left"></i>
+              Go Back
+            </a>
+          </aside>
+
+          <!-- Edit form -->
+          <section class="card">
+            <h3>Account Settings</h3>
+            <p class="muted">Make changes to your profile. Leave password empty to keep your current one.</p>
+
+            <form id="profileForm" action="/profile" method="post" aria-label="Update profile" style="margin-top:8px;">
+              <label for="username">Username</label>
+              <input id="username" name="username" type="text" placeholder="Username" value="<%= (typeof username !== 'undefined' && username) ? username : '' %>" required>
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" value="<%= (typeof email !== 'undefined' && email) ? email : '' %>" required>
+
+              <label for="password">New Password</label>
+              <input id="password" name="password" type="password" placeholder="Leave blank to keep current">
+
+              <div class="actions">
+                <a href="/" class="btn btn-secondary"><i class="fa-solid fa-xmark"></i> Cancel</a>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save changes</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <!-- Footer -->
+    <footer class="footer-distributed">
+      <div class="footer-left">
+        <a href="/" class="navbar-logo" aria-label="Home">
+          <img src="https://cdn.pixabay.com/photo/2015/12/15/23/32/universal-health-care-1095124_640.png" alt="logo">
+          <img src="https://ik.imagekit.io/77nsbwefl/download.png?updatedAt=1755196133135" alt="logo">
+        </a>
+        <p class="footer-links">
+          <a href="/" class="link-1">Home</a>
+          <a href="/add_medicine">Medicine</a>
+          <a href="/show_details">Show Details</a>
+          <a href="/about">About</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/contact">Contact</a>
+        </p>
+        <p class="footer-company-name" style="width: auto; color:#0d0204; font-size: 20px; font:bold; font-style:italic; ">TechFlies</p>
+      </div>
+
+      <div class="footer-center">
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <p><span>P7MV+F9G, B.M Road,</span> Ghousia College of Engineering,<br> Ramanagara, Karnataka 562159</p>
+        </div>
+        <div>
+          <i class="fa fa-phone"></i>
+          <p>+91-8446548235</p>
+        </div>
+        <div>
+          <i class="fa fa-envelope"></i>
+          <p><a href="medicinereminder04@gmail.com">medicinereminder04@gmail.com</a></p>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <p class="footer-company-about">
+          <span>About the company</span>
+          Tools that help you stay on track with your health—simply and beautifully.
+        </p>
+        <div class="footer-icons">
+          <a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+          <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          <a href="#"><i class="fab fa-github" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+    // Navbar toggler
+    document.querySelectorAll(".navbar-toggler").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelector(".navbar-menu").classList.toggle("active");
+      });
+    });
+
+    // User menu
+    const userIcon = document.getElementById('userIcon');
+    const userMenu = document.getElementById('userMenu');
+    if (userIcon && userMenu) {
+      userIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = !userMenu.classList.contains('visible');
+        userMenu.classList.toggle('visible', open);
+        userIcon.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', (e) => {
+        if (!userMenu.contains(e.target)) {
+          userMenu.classList.remove('visible');
+          userIcon.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          userMenu.classList.remove('visible');
+          userIcon.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Optionally toggle form focus via Manage button (kept for parity with older pages)
+    (function () {
+      const btn = document.getElementById('manageToggle');
+      const form = document.getElementById('profileForm');
+      if (!btn || !form) return;
+      btn.addEventListener('click', () => {
+        // Just focus the first input (form always visible in this layout)
+        const first = form.querySelector('input');
+        if (first) first.focus();
+      });
+    })();
+  </script>
+</body>
+</html>

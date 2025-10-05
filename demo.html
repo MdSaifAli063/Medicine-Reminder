@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>User Menu</title>
+
+<!-- Using font-awesome icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root{
+    --bg: #f6f7fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --hover: #f8fafc;
+    --ring: #93c5fd;
+    --primary: #2563eb;
+    --shadow: 0 12px 30px rgba(2, 6, 23, 0.12);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans";
+    color: var(--text);
+    background: linear-gradient(180deg, var(--bg) 0%, #eef1f7 100%);
+  }
+
+  /* Position the dropdown in the top-right corner */
+  .dropdown {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1000;
+  }
+
+  /* Avatar trigger */
+  .user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 9999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    color: #fff;
+    box-shadow:
+      0 0 0 3px #ffffff,
+      0 4px 12px rgba(2, 6, 23, 0.15);
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  }
+
+  .user-avatar:hover { transform: translateY(-1px); filter: brightness(1.05); }
+  .user-avatar:active { transform: translateY(0); filter: brightness(0.98); }
+  .user-avatar.active {
+    box-shadow:
+      0 0 0 4px #ffffff,
+      0 0 0 6px var(--ring),
+      0 6px 18px rgba(2, 6, 23, 0.18);
+  }
+
+  .user-avatar i {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 12px);
+    min-width: 260px;
+    border-radius: var(--radius);
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 8px 0;
+    opacity: 0;
+    transform: scale(0.96) translateY(-6px);
+    transform-origin: top right;
+    pointer-events: none;
+    transition: opacity .15s ease, transform .2s ease;
+  }
+
+  .dropdown-menu.open {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Small caret */
+  .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+
+  /* User info section */
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .user-info .avatar-sm {
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 2px 8px rgba(2, 6, 23, 0.12);
+    flex: 0 0 auto;
+  }
+
+  .user-info .details {
+    min-width: 0;
+  }
+
+  .user-info h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user-info p {
+    margin: 2px 0 0 0;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Menu items */
+  .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background .15s ease, color .15s ease;
+  }
+
+  .dropdown-menu a i {
+    width: 18px;
+    text-align: center;
+    color: #64748b;
+    transition: color .15s ease, transform .15s ease;
+  }
+
+  .dropdown-menu a:hover {
+    background: var(--hover);
+    color: var(--primary);
+  }
+
+  .dropdown-menu a:hover i {
+    color: var(--primary);
+    transform: translateX(1px);
+  }
+
+  .divider {
+    height: 1px;
+    background-color: var(--border);
+    margin: 4px 0;
+  }
+
+  /* Responsive tweak: larger touch targets on small screens */
+  @media (max-width: 480px) {
+    .dropdown {
+      top: 16px;
+      right: 16px;
+    }
+    .dropdown-menu {
+      min-width: 240px;
+    }
+    .dropdown-menu a {
+      padding: 12px 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="dropdown">
+  <div
+    class="user-avatar"
+    id="userAvatar"
+    role="button"
+    tabindex="0"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    title="Account menu"
+  >
+    <i class="fa-solid fa-user"></i>
+  </div>
+
+  <div class="dropdown-menu" id="userMenu" role="menu" aria-label="User menu">
+    <div class="user-info">
+      <div class="avatar-sm"><i class="fa-solid fa-user"></i></div>
+      <div class="details">
+        <h4>Md Saif Ali</h4>
+        <p>mdsaifali6303@gmail.com</p>
+      </div>
+    </div>
+
+    <a href="#" role="menuitem"><i class="fa fa-home"></i>Dashboard</a>
+    <div class="divider" aria-hidden="true"></div>
+    <a href="#" role="menuitem"><i class="fa fa-gear"></i>Profile Settings</a>
+    <a href="#" role="menuitem"><i class="fa fa-question-circle"></i>Help &amp; Support</a>
+    <a href="#" role="menuitem"><i class="fa fa-right-from-bracket"></i>Logout</a>
+  </div>
+</div>
+
+<script>
+  const avatar = document.getElementById('userAvatar');
+  const menu = document.getElementById('userMenu');
+
+  function toggleMenu(force) {
+    const shouldOpen = typeof force === 'boolean' ? force : !menu.classList.contains('open');
+    menu.classList.toggle('open', shouldOpen);
+    avatar.classList.toggle('active', shouldOpen);
+    avatar.setAttribute('aria-expanded', String(shouldOpen));
+  }
+
+  avatar.addEventListener('click', () => toggleMenu());
+  avatar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  // Close on outside click
+  window.addEventListener('click', (e) => {
+    if (!avatar.contains(e.target) && !menu.contains(e.target)) {
+      toggleMenu(false);
+    }
+  });
+
+  // Close on Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+</script>
+
+</body>
+</html>

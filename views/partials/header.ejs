@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= typeof pageTitle !=='undefined' ? pageTitle : 'Medicine Reminder' %>
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,500,300,700);
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: "Roboto", sans-serif;
+        }
+
+        body {
+            font-size: 0.925rem;
+            background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(https://i.pinimg.com/originals/9f/f7/d1/9ff7d1a690e7bf508eda106f9bc13dab.jpg);
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        .header {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(https://i.pinimg.com/originals/9f/f7/d1/9ff7d1a690e7bf508eda106f9bc13dab.jpg);
+            background-position: center;
+            background-size: cover;
+        }
+
+        .text-box {
+            width: 90%;
+            color: #fff;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .text-box h1 {
+            font-size: 72px;
+            color: #cfbae1;
+        }
+
+        @media (max-width: 768px) {
+            .text-box h1 {
+                font-size: 48px;
+                /* Smaller font size for tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .text-box h1 {
+                font-size: 22px;
+                /* Smaller font size for mobile devices */
+            }
+        }
+
+
+        .text-box p {
+            margin: 10px 0 40px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #0b0000;
+            border: 1px solid #fff;
+            padding: 15px 50px;
+            font-size: 20px;
+            background: linear-gradient(45deg, #83a4d4, #b6fbff);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .hero-btn:hover {
+            border: 1px solid #f44336;
+            background: #f44336;
+            transition: 1s;
+        }
+
+        .course {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #777;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 22px;
+            padding: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1170px;
+            position: relative;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .navbar {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            background: linear-gradient(to top, #a4def9, #cfbae1);
+            padding: 1rem 1.15rem;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .navbar>.container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-toggler {
+            cursor: pointer;
+            border: none;
+            display: none;
+            outline: none;
+            background: none;
+        }
+
+        .navbar-toggler span {
+            height: 2px;
+            width: 22px;
+            background-color: #427df4;
+            display: block;
+        }
+
+        .navbar-toggler span:not(:last-child) {
+            margin-bottom: 0.2rem;
+        }
+
+        .navbar-logo img {
+            height: 40px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            flex-basis: auto;
+            flex-grow: 1;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+            flex-direction: row;
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .navbar-nav>li {
+            position: relative;
+        }
+
+        .navbar-nav>li>a {
+            color: #170101;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav>li>a:hover {
+            color: #007BFF;
+        }
+
+        .nav-links ul li::after {
+            content: '';
+            width: 0%;
+            height: 2px;
+            background: #f44336;
+            display: block;
+            margin: auto;
+            transition: 0.5s;
+        }
+
+        .nav-links ul li:hover::after {
+            width: 100%;
+        }
+
+        .navbar-nav .dropdown {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #efe8e8;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            min-width: 160px;
+            width: auto;
+            white-space: nowrap;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            z-index: 99999;
+            border-radius: 0.75rem;
+            display: none;
+        }
+
+        .navbar-nav .dropdown.show {
+            display: block !important;
+        }
+
+        .navbar-nav .dropdown li a {
+            color: #3c4250;
+            padding: 0.25rem 1rem;
+            display: block;
+        }
+
+        .navbar-nav .dropdown .separator {
+            height: 1px;
+            width: 100%;
+            margin-top: 9px;
+            margin-bottom: 9px;
+            background-color: #eceef3;
+        }
+
+        .navbar-menu.active {
+            display: flex !important;
+            flex-direction: column;
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-control {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                text-align: center;
+            }
+
+            .navbar-header {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-direction: row-reverse;
+            }
+
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-nav {
+                width: 100%;
+                display: block;
+                border-top: 1px solid #EEE;
+                margin-top: 1rem;
+            }
+
+            .navbar-nav>li>a {
+                border-bottom: 1px solid #eceef3;
+            }
+        }
+
+        .footer-distributed {
+            background: linear-gradient(45deg, #83a4d4, #b6fbff);
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+            font: bold 16px sans-serif;
+            padding: 55px 50px;
+        }
+
+        .footer-distributed .footer-left,
+        .footer-distributed .footer-center,
+        .footer-distributed .footer-right {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        /* Footer left */
+
+        .footer-distributed .footer-left {
+            width: 40%;
+        }
+
+        /* The company logo */
+
+        .footer-distributed h3 {
+            color: #ffffff;
+            font: normal 36px 'Open Sans', cursive;
+            margin: 0;
+        }
+
+        .footer-distributed h3 span {
+            color: lightseagreen;
+        }
+
+        /* Footer links */
+
+        .footer-distributed .footer-links {
+            color: #ffffff;
+            margin: 20px 0 12px;
+            padding: 0;
+        }
+
+        .footer-distributed .footer-links a {
+            display: inline-block;
+            line-height: 1.8;
+            font-weight: 400;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .footer-distributed .footer-company-name {
+            color: #222;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* Footer Center */
+
+        .footer-distributed .footer-center {
+            width: 35%;
+        }
+
+        .footer-distributed .footer-center i {
+            background-color: #33383b;
+            color: #ffffff;
+            font-size: 25px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 42px;
+            margin: 10px 15px;
+            vertical-align: middle;
+        }
+
+        .footer-distributed .footer-center i.fa-envelope {
+            font-size: 17px;
+            line-height: 38px;
+        }
+
+        .footer-distributed .footer-center p {
+            display: inline-block;
+            color: #ffffff;
+            font-weight: 400;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        .footer-distributed .footer-center p span {
+            display: block;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .footer-distributed .footer-center p a {
+            color: lightseagreen;
+            text-decoration: none;
+            ;
+        }
+
+        .footer-distributed .footer-links a:before {
+            content: "|";
+            font-weight: 300;
+            font-size: 20px;
+            left: 0;
+            color: #fff;
+            display: inline-block;
+            padding-right: 5px;
+        }
+
+        .footer-distributed .footer-links .link-1:before {
+            content: none;
+        }
+
+        /* Footer Right */
+
+        .footer-distributed .footer-right {
+            width: 20%;
+        }
+
+        .footer-distributed .footer-company-about {
+            line-height: 20px;
+            color: #92999f;
+            font-size: 13px;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .footer-distributed .footer-company-about span {
+            display: block;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-distributed .footer-icons {
+            margin-top: 25px;
+        }
+
+        .footer-distributed .footer-icons a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            background-color: #d5dce0;
+            border-radius: 2px;
+
+            font-size: 20px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 35px;
+
+            margin-right: 3px;
+            margin-bottom: 5px;
+        }
+
+        /* If you don't want the footer to be responsive, remove these media queries */
+
+        @media (max-width: 880px) {
+
+            .footer-distributed {
+                font: bold 14px sans-serif;
+            }
+
+            .footer-distributed .footer-left,
+            .footer-distributed .footer-center,
+            .footer-distributed .footer-right {
+                display: block;
+                width: 100%;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+
+            .footer-distributed .footer-center i {
+                margin-left: 0;
+            }
+
+        }
+
+
+        #userIcon {
+            font-size: 40px;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        #userIcon:hover {
+            color: #007bff;
+        }
+
+        #userMenu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 98%;
+            transform: translateX(-50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 2px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        #userMenu a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 2px 0;
+        }
+
+        #userMenu.visible {
+            display: block;
+        }
+
+
+        #userMenu a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggler" data-toggle="open-navbar1">
+                    <span></span><span></span><span></span>
+                </button>
+                <a href="/" class="navbar-logo">
+                    <img src="https://cdn.pixabay.com/photo/2015/12/15/23/32/universal-health-care-1095124_640.png"
+                        alt="logo">
+                    <img src="https://ik.imagekit.io/77nsbwefl/download.png?updatedAt=1755196133135" alt="logo">
+                </a>
+            </div>
+            <div class="navbar-menu" id="open-navbar1">
+                <ul class="navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/add_medicine">Medicine</a></li>
+                    <li><a href="/show_details">Show Details</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <% if (loggedIn) { %>
+                        <i id="userIcon" class="fas fa-user-circle"></i>
+                        <div id="userMenu">
+                            <p><a href="#">Profile</a></p>
+                            <p><a href="/logout">Logout</a></p>
+                        </div>
+                        <% } else { %>
+                            <i id="userIcon" class="fas fa-user-circle"></i>
+                            <div id="userMenu">
+                                <p><a href="/sign_in">Sign_in</a></p>
+                            </div>
+                            <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>

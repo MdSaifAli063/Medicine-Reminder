@@ -58,9 +58,9 @@ cd medicine-reminder
 ```
 2️⃣ Install dependencies
 
-bash
-Copy code
+```bash
 npm install
+```
 3️⃣ Create a .env file in the root directory
 Example:
 

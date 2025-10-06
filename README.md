@@ -1,6 +1,4 @@
-# 💊🕒 Medicine Reminder & Management System
-
- <p align="center">
+<p align="center">
   <h1 align="center">💊🕒 Medicine Reminder & Management System</h1>
   <p align="center">
     🧠 A smart, full-stack web application built with <br>

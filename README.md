@@ -128,8 +128,8 @@ medicine-reminder/
 - No plain-text credentials are ever saved.
 
 ## 📧 Example Reminder Email
->Subject: Medicine Reminder
->Body: 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
+- Subject: Medicine Reminder
+- Body: 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
 
 💻 Preview
 🖥️ Dashboard Example

@@ -1,7 +1,8 @@
 <p align="center">
   <h1 align="center">💊🕒 Medicine Reminder & Management System</h1>
   <p align="center">
-    🧠 A smart, full-stack web application built with <br>
+    🧠 A smart, full-stack web application built with 
+    <br>
     <img src="https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white" alt="Node.js">
     <img src="https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white" alt="Express.js">
     <img src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white" alt="MongoDB">

@@ -14,6 +14,16 @@
 
 ---
 
+## 🔗 Live Project
+
+🌐 https://medicine-reminder.vercel.app
+ 
+💻 GitHub Repository
+
+📂 ![See here](https://github.com/MdSaifAli063/Medicine-Reminder)
+
+---
+
 ## 🌟 Features  
 
 ✨ **User Authentication** – Secure sign-up, login, and profile management using bcrypt & express-session.  

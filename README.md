@@ -1,12 +1,17 @@
 # 💊🕒 Medicine Reminder & Management System
 
- 🧠 A smart, full-stack web application built with  
- ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)  
- ![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)  
- ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)  
- ![EJS](https://img.shields.io/badge/EJS-FFD700?logo=ejs&logoColor=black)  
-
-Helps users **track medicines**, **schedule reminders**, and receive **automated email notifications** via Gmail.
+ <p align="center">
+  <h1 align="center">💊🕒 Medicine Reminder & Management System</h1>
+  <p align="center">
+    🧠 A smart, full-stack web application built with <br>
+    <img src="https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white" alt="Node.js">
+    <img src="https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white" alt="Express.js">
+    <img src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white" alt="MongoDB">
+    <img src="https://img.shields.io/badge/EJS-FFD700?logo=ejs&logoColor=black" alt="EJS">
+    <br><br>
+    Helps users <strong>track medicines</strong>, <strong>schedule reminders</strong>, and receive <strong>automated email notifications</strong> via Gmail.
+  </p>
+</p>
 
 ---
 

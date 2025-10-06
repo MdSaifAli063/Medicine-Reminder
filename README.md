@@ -131,10 +131,10 @@ medicine-reminder/
 - Subject: Medicine Reminder
 - Body: 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
 
-💻 Preview
-🖥️ Dashboard Example
+## 💻 Preview
+### 🖥️ Dashboard Example
 Displays total medicines & active reminders.
-📩 Email Notifications
+### 📩 Email Notifications
 Arrive automatically at scheduled intervals.
 
 🤝 Contributing

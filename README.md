@@ -55,6 +55,7 @@ Make sure you have:
 ```bash
 git clone https://github.com/your-username/medicine-reminder.git
 cd medicine-reminder
+```
 2️⃣ Install dependencies
 
 bash

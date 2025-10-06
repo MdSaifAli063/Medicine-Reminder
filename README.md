@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">💊🕒 Medicine Reminder & Management System</h1>
+  <h1>💊🕒 Medicine Reminder & Management System</h1>
   <p align="center">
     🧠 A smart, full-stack web application built with <br>
     <br>
@@ -52,6 +52,7 @@ Make sure you have:
 ## ⚙️ Installation  
 
 1️⃣ **Clone this repository**
+
 ```bash
 git clone https://github.com/your-username/medicine-reminder.git
 cd medicine-reminder
@@ -71,6 +72,7 @@ SESSION_SECRET=your_secret_key
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_app_password
 ```
+
 4️⃣ Run the app
 
 ```bash
@@ -80,6 +82,7 @@ node app.js
 ```
 
 ## 📁 Folder Structure
+
 ```bash
 medicine-reminder/
 │
@@ -118,7 +121,9 @@ medicine-reminder/
 | `/dashboard`          | Overview stats             |
 | `/contact` & `/about` | Static info pages          |
 
+
 ## 🔒 Security
+
 - Passwords are hashed using bcrypt.
 
 - Sessions are securely stored with connect-mongo.
@@ -128,15 +133,18 @@ medicine-reminder/
 - No plain-text credentials are ever saved.
 
 ## 📧 Example Reminder Email
+
 - *Subject:* Medicine Reminder
 - *Body:* 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
 
 ## 💻 Preview
 
 ***🖥️ Dashboard Example***
+
 Displays total medicines & active reminders.
 
 ***📩 Email Notifications***
+
 Arrive automatically at scheduled intervals.
 
 ## 🤝 Contributing
@@ -145,11 +153,14 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 🧑‍💻 Author
 ***👨‍💻 Md Saif Ali**
+
 🔗 GitHub Profile
 
 ## 📄 License
+
 🪪 This project is licensed under the MIT License – feel free to use, modify, and distribute.
 
 ## ⭐ Support
 If you like this project, don’t forget to star ⭐ it on GitHub!
+
 Your support motivates further improvements 💖

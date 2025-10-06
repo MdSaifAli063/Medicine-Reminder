@@ -118,14 +118,14 @@ medicine-reminder/
 | `/dashboard`          | Overview stats             |
 | `/contact` & `/about` | Static info pages          |
 
-🔒 Security
-Passwords are hashed using bcrypt.
+## 🔒 Security
+- Passwords are hashed using bcrypt.
 
-Sessions are securely stored with connect-mongo.
+- Sessions are securely stored with connect-mongo.
 
-Environment variables are hidden via .env.
+- Environment variables are hidden via .env.
 
-No plain-text credentials are ever saved.
+- No plain-text credentials are ever saved.
 
 📧 Example Reminder Email
 Subject: Medicine Reminder

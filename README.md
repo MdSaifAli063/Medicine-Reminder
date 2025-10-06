@@ -73,11 +73,11 @@ EMAIL_PASS=your_email_app_password
 ```
 4️⃣ Run the app
 
-bash
-Copy code
+```bash
 node app.js
 ✅ Server will start at:
 👉 http://localhost:3000
+```
 
 📁 Folder Structure
 bash

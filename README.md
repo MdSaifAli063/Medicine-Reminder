@@ -16,7 +16,7 @@
 
 ## 🔗 Live Project
 
-🌐 https://medicine-reminder.vercel.app
+🌐 [](https://medicine-reminder-yp3m.onrender.com/)
  
 💻 GitHub Repository
 

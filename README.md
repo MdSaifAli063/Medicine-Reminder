@@ -92,7 +92,7 @@ medicine-reminder/
 ```
 ## 📬 Email Reminder Flow
 
-### 📌 When you add a medicine with an email ID:
+***📌 When you add a medicine with an email ID:***
 
 - The system calculates the frequency interval.
 
@@ -128,13 +128,13 @@ medicine-reminder/
 - No plain-text credentials are ever saved.
 
 ## 📧 Example Reminder Email
-- Subject: Medicine Reminder
-- Body: 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
+- *Subject:* Medicine Reminder
+- *Body:* 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
 
 ## 💻 Preview
-### 🖥️ Dashboard Example
+***🖥️ Dashboard Example***
 Displays total medicines & active reminders.
-### 📩 Email Notifications
+***📩 Email Notifications***
 Arrive automatically at scheduled intervals.
 
 🤝 Contributing

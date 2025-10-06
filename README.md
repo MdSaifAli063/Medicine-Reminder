@@ -16,12 +16,8 @@
 
 ## 🔗 Live Project
 
-🌐 [](https://medicine-reminder-yp3m.onrender.com/)
+🌐 https://medicine-reminder-yp3m.onrender.com/
  
-💻 GitHub Repository
-
-📂 ![See here](https://github.com/MdSaifAli063/Medicine-Reminder)
-
 ---
 
 ## 🌟 Features  

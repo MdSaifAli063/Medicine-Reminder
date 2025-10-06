@@ -49,7 +49,7 @@ Make sure you have:
 
 ---
 
-### ⚙️ Installation  
+## ⚙️ Installation  
 
 1️⃣ **Clone this repository**
 ```bash
@@ -79,9 +79,8 @@ node app.js
 👉 http://localhost:3000
 ```
 
-📁 Folder Structure
-bash
-Copy code
+## 📁 Folder Structure
+```bash
 medicine-reminder/
 │
 ├── public/              # Static assets (CSS, JS, images)
@@ -90,6 +89,7 @@ medicine-reminder/
 ├── app.js               # Main Express application
 ├── .env                 # Environment variables
 └── package.json
+```
 📬 Email Reminder Flow
 📌 When you add a medicine with an email ID:
 

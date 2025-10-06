@@ -90,16 +90,17 @@ medicine-reminder/
 ├── .env                 # Environment variables
 └── package.json
 ```
-📬 Email Reminder Flow
-📌 When you add a medicine with an email ID:
+## 📬 Email Reminder Flow
 
-The system calculates the frequency interval.
+### 📌 When you add a medicine with an email ID:
 
-A background timer triggers reminders.
+- The system calculates the frequency interval.
 
-The user receives a friendly email notification every time it’s medicine time.
+- A background timer triggers reminders.
 
-Once the course duration ends, reminders automatically stop.
+- The user receives a friendly email notification every time it’s medicine time.
+
+- Once the course duration ends, reminders automatically stop.
 
 👤 User Routes Overview
 Route	Description

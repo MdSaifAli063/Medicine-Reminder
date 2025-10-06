@@ -102,8 +102,9 @@ medicine-reminder/
 
 - Once the course duration ends, reminders automatically stop.
 
-👤 User Routes Overview
-Route	Description
+## 👤 User Routes Overview
+
+ Route	Description
 /	Homepage
 /sign_up	Create new account
 /sign_in	Login existing user

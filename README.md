@@ -63,14 +63,14 @@ npm install
 ```
 3️⃣ Create a .env file in the root directory
 Example:
-
 env
-Copy code
+```bash
 PORT=3000
 MONGO_URI=your_mongodb_connection_string
 SESSION_SECRET=your_secret_key
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_app_password
+```
 4️⃣ Run the app
 
 bash

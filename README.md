@@ -104,18 +104,19 @@ medicine-reminder/
 
 ## 👤 User Routes Overview
 
- Route	Description
-/	Homepage
-/sign_up	Create new account
-/sign_in	Login existing user
-/logout	End session
-/profile	View & update user profile
-/add_medicine	Add medicines
-/show_details	List all added medicines
-/set_reminder	Enable/disable reminders
-/remove_medicine	Delete medicine entry
-/dashboard	Overview stats
-/contact & /about	Static info pages
+| Route                 | Description                |
+| --------------------- | -------------------------- |
+| `/`                   | Homepage                   |
+| `/sign_up`            | Create new account         |
+| `/sign_in`            | Login existing user        |
+| `/logout`             | End session                |
+| `/profile`            | View & update user profile |
+| `/add_medicine`       | Add medicines              |
+| `/show_details`       | List all added medicines   |
+| `/set_reminder`       | Enable/disable reminders   |
+| `/remove_medicine`    | Delete medicine entry      |
+| `/dashboard`          | Overview stats             |
+| `/contact` & `/about` | Static info pages          |
 
 🔒 Security
 Passwords are hashed using bcrypt.

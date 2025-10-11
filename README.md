@@ -160,7 +160,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## 🧑‍💻 Author
 **👨‍💻 Md Saif Ali**
 
-🔗  ![link](https://github.com/MdSaifAli063)
+🔗  https://github.com/MdSaifAli063
 
 ## 📄 License
 

@@ -16,7 +16,7 @@
 
 ## 🔗 Live Project
 
-🌐 https://medicine-reminder-yp3m.onrender.com/
+🌐 [Live](https://medicine-reminder-yp3m.onrender.com/)
  
 ---
 

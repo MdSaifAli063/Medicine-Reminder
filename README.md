@@ -104,11 +104,8 @@ medicine-reminder/
 ***📌 When you add a medicine with an email ID:***
 
 - The system calculates the frequency interval.
-
 - A background timer triggers reminders.
-
 - The user receives a friendly email notification every time it’s medicine time.
-
 - Once the course duration ends, reminders automatically stop.
 
 ## 👤 User Routes Overview

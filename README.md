@@ -154,7 +154,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## 🧑‍💻 Author
 **👨‍💻 Md Saif Ali**
 
-🔗  https://github.com/MdSaifAli063
+🔗 [Profile](https://github.com/MdSaifAli063)
 
 ## 📄 License
 

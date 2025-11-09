@@ -128,11 +128,8 @@ medicine-reminder/
 ## 🔒 Security
 
 - Passwords are hashed using bcrypt.
-
 - Sessions are securely stored with connect-mongo.
-
 - Environment variables are hidden via .env.
-
 - No plain-text credentials are ever saved.
 
 ## 📧 Example Reminder Email

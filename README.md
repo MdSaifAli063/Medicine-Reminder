@@ -55,24 +55,7 @@ Make sure you have:
 
 ---
 
-<<<<<<< HEAD
-### ⚙️ Installation  
 
-1️⃣ **Clone this repository**
-```bash
-git clone https://github.com/your-username/medicine-reminder.git
-cd medicine-reminder
-2️⃣ Install dependencies
-
-bash
-Copy code
-npm install
-3️⃣ Create a .env file in the root directory
-Example:
-
-env
-Copy code
-=======
 ## ⚙️ Installation  
 
 1️⃣ **Clone this repository**
@@ -90,26 +73,13 @@ npm install
 Example:
 env
 ```bash
->>>>>>> 23f55318bab2d691c296d4613d9925e442db64ce
+
 PORT=3000
 MONGO_URI=your_mongodb_connection_string
 SESSION_SECRET=your_secret_key
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_app_password
-<<<<<<< HEAD
-4️⃣ Run the app
 
-bash
-Copy code
-node app.js
-✅ Server will start at:
-👉 http://localhost:3000
-
-
-##📁 Folder Structure
-bash
-Copy code
-=======
 ```
 
 4️⃣ Run the app
@@ -123,7 +93,6 @@ node app.js
 ## 📁 Folder Structure
 
 ```bash
->>>>>>> 23f55318bab2d691c296d4613d9925e442db64ce
 medicine-reminder/
 │
 ├── public/              # Static assets (CSS, JS, images)
@@ -132,65 +101,7 @@ medicine-reminder/
 ├── app.js               # Main Express application
 ├── .env                 # Environment variables
 └── package.json
-<<<<<<< HEAD
-📬 Email Reminder Flow
-📌 When you add a medicine with an email ID:
 
-The system calculates the frequency interval.
-
-A background timer triggers reminders.
-
-The user receives a friendly email notification every time it’s medicine time.
-
-Once the course duration ends, reminders automatically stop.
-
-👤 User Routes Overview
-Route	Description
-/	Homepage
-/sign_up	Create new account
-/sign_in	Login existing user
-/logout	End session
-/profile	View & update user profile
-/add_medicine	Add medicines
-/show_details	List all added medicines
-/set_reminder	Enable/disable reminders
-/remove_medicine	Delete medicine entry
-/dashboard	Overview stats
-/contact & /about	Static info pages
-
-🔒 Security
-Passwords are hashed using bcrypt.
-
-Sessions are securely stored with connect-mongo.
-
-Environment variables are hidden via .env.
-
-No plain-text credentials are ever saved.
-
-📧 Example Reminder Email
-Subject: Medicine Reminder
-Body: 💊 Reminder: Time to take your medicine 'Paracetamol' - Dosage: 500mg
-
-💻 Preview
-🖥️ Dashboard Example
-Displays total medicines & active reminders.
-📩 Email Notifications
-Arrive automatically at scheduled intervals.
-
-🤝 Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to improve.
-
-🧑‍💻 Author
-👨‍💻 Md Saif Ali
-🔗 GitHub Profile
-
-📄 License
-🪪 This project is licensed under the MIT License – feel free to use, modify, and distribute.
-
-⭐ Support
-If you like this project, don’t forget to star ⭐ it on GitHub!
-Your support motivates further improvements 💖
-=======
 ```
 ## 📬 Email Reminder Flow
 
@@ -257,4 +168,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 If you like this project, don’t forget to star ⭐ it on GitHub!
 
 Your support motivates further improvements 💖
->>>>>>> 23f55318bab2d691c296d4613d9925e442db64ce
+

@@ -112,6 +112,7 @@ medicine-reminder/
 - The user receives a friendly email notification every time it’s medicine time.
 - Once the course duration ends, reminders automatically stop.
 
+
 ## 👤 User Routes Overview
 
 | Route                 | Description                |
